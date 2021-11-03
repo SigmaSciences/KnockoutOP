@@ -18,12 +18,12 @@ Basic bindings are currently available for the following:
 |`<input type="text">`       | TEdit       |
 |`<input type="checkbox">`      | TCheckBox        |
 |`<input type="radio">`    | TRadioButton      |
-|    <select> with size unspecified | TComboBox     |
-|<select> with size specified  | TListBox     |
-|<select> with size specified and "multiple" | TListBox with multi-select     |
-|<textarea>      | TMemo     |
-|<div> | TPanel     |
-|Content-editable <div> (with Options.eoEnterSoftBreak)      | TRichEdit (via HTML)    |
+|`<select>` with size unspecified | TComboBox     |
+|`<select>` with size specified  | TListBox     |
+|`<select>` with size specified and "multiple" | TListBox with multi-select     |
+|`<textarea>`      | TMemo     |
+|`<div>` | TPanel     |
+|Content-editable `<div>` (with Options.eoEnterSoftBreak)      | TRichEdit (via HTML)    |
 
 
 ### Todo
