@@ -13,12 +13,12 @@ Basic bindings are currently available for the following:
 
 | HTML | VCL Equivalent      | 
 | -------------| -----------      |
-|<label>      | TLabel     |
-|<button> or <input type="button"> with the latter for forms     | TButton        |
-|<input type="text">       | TEdit       |
-|<input type="checkbox">      | TCheckBox        |
-|<input type="radio">    | TRadioButton      |
-|<select> with size unspecified | TComboBox     |
+|`<label>`      | TLabel     |
+|`<button>` or `<input type="button">` with the latter for forms     | TButton        |
+|`<input type="text">`       | TEdit       |
+|`<input type="checkbox">`      | TCheckBox        |
+|`<input type="radio">`    | TRadioButton      |
+|    <select> with size unspecified | TComboBox     |
 |<select> with size specified  | TListBox     |
 |<select> with size specified and "multiple" | TListBox with multi-select     |
 |<textarea>      | TMemo     |
