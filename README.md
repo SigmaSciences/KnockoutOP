@@ -6,7 +6,7 @@ KnockoutOP combines two superb libraries from the [Delphi](https://www.embarcade
 ##### :warning: Important: The current codebase relies on modified versions of two of the DelphiHTMLComponents units, complicated by the fact that the originals used are not part of an official DHTML release. This will be addressed in the near future but for now the code is for inspection-purposes only.
 
 #### Knockoff
-The only file required from Knockoff is Knockoff.Binding.pas.
+The only file required from Knockoff is Knockoff.Observable.pas.
 
 ### Basic Bindings
 Basic bindings are currently available for the following:
@@ -23,20 +23,42 @@ Basic bindings are currently available for the following:
 |`<select>` with size specified and "multiple" | TListBox with multi-select     |
 |`<textarea>`      | TMemo     |
 |`<div>` | TPanel     |
-|Content-editable `<div>` (with Options.eoEnterSoftBreak)      | TRichEdit (via HTML)    |
+
+
+### HTML User Interfaces
+
+Applications such as Visual Studio Code demonstrate what's achievable using HTML/CSS/Javascript for the UI, but typically depend on the heavyweight Electron framework. Being able to integrate a fully HTML/CSS compliant UI in Delphi (via MVVM) provides a number of advantages:
+
+- Unified styling across VCL and FMX apps
+- Styling and UIs can be built by web developers
+- End users can apply (and even develop) custom styles
+- UIs can be built using modern vector tools such as [Figma](https://www.figma.com/)
+
+An enormous amount can be achieved using just HTML and CSS without the need for Javascript. In fact there is a growing trend of "just enough Javascript and no more", with CSS being used to do more UI interactivity. Of course, for more sophisticated components we can't avoid scripting and for DHTML we have two options:
+
+- Use the built-in Pascal scripter
+- Use Delphi code to manipulate the DOM directly
+
+At some point in the future we might get Javascript integrated into DHTML and then we would see an explosion of options for Delphi developers.
+
+### Knockout.js
+
+Knockout.js was very popular for web application development but in recent years has been regarded as legacy technology. There's nothing fundamentally wrong with it, but rather there have appeared alternative frameworks that provide additional functionality (e.g. routing) as well as data binding. These frameworks tend to be "all-or-nothing" and there's a certain attraction in building a more flexible framework that doesn't lead to lock-in. In Delphi app development of course the fundamental architecture is completely different and a Knockout-style MVVM could be very useful. When we also consider using Knockout.js in one of the Delphi web frameworks, e.g. [Quartex](https://www.patreon.com/quartexnow) or [TMS Web Core](https://www.tmssoftware.com/site/tmswebcore.asp), we can see the possibility of a common UI codebase across desktop, mobile and web.
 
 
 ### Todo
 
-##### Features
+#### Bindings
+- TListView
 - Grids (Note that there is a powerful table component in DHTML and this is being evaluated)
 - Treeview
-- Integration with Spring4D?
 
-##### Code
+#### Code
 - Improve some of the RTTI code
-- Tests: Need to decide how best to test the UI.
+- Tests: Need to decide how best to test the UI primitives
 - More demos
+- Integration with Spring4D?
+- Investigate possibility of common UI codebase for desktop and web
 
 ### Prerequisites
 This library has been developed and tested with **Delphi 10.4.2 Sydney** - I have not tried or tested any other versions so far.
