@@ -3,10 +3,14 @@
 KnockoutOP combines two superb libraries from the [Delphi](https://www.embarcadero.com/products/delphi) ecosystem, [Knockoff](https://bitbucket.org/sglienke/knockoff) MVVM and  [DelphiHTMLComponents](https://delphihtmlcomponents.com/), to provide an HTML/CSS-based approach to MVVM in Delphi. It can currently best be described as a proof-of-concept and is some way from being production quality.
 
 #### Delphi HTML Components (DHTML)
+KnockoutOP uses the **THtPanel** from the DHTML component set.
+
 ##### :warning: Important: The current codebase relies on modified versions of two of the DelphiHTMLComponents units, complicated by the fact that the originals used are not part of an official DHTML release. This will be addressed in the near future but for now the code is for inspection-purposes only.
 
 #### Knockoff
-The only file required from Knockoff is Knockoff.Observable.pas.
+The only unmodified file required from Knockoff is **Knockoff.Observable.pas**. Heavily modified versions of the other Knockoff files used have been renamed as KnockoutOP and are in the Source folder.
+
+Details on the idea behind Knockoff observables can be found [**here**](https://delphisorcery.blogspot.com/2015/06/anonymous-method-overloading.html).
 
 ### Basic Element Bindings
 Basic bindings are currently available for the following elements:
@@ -27,14 +31,14 @@ Basic bindings are currently available for the following elements:
 
 ### HTML User Interfaces
 
-Applications such as Visual Studio Code demonstrate what's achievable using HTML/CSS/Javascript for the UI, but typically depend on the heavyweight Electron framework. Being able to integrate a fully HTML/CSS compliant UI in Delphi (via MVVM) provides a number of advantages:
+Applications such as Visual Studio Code demonstrate what's achievable using HTML/CSS/Javascript for a desktop UI, but typically depend on the heavyweight Electron framework. Being able to integrate a fully HTML/CSS compliant UI in Delphi (via MVVM) provides a number of advantages:
 
 - Unified styling across VCL and FMX apps
 - Styling and UIs can be built by web developers
 - End users can apply (and even develop) custom styles
 - UIs can be built using modern vector tools such as [Figma](https://www.figma.com/)
-- The limited number of HTML elements in turn limits the number of different bindings we need to develop
-- CSS isn't restricted to appearance - we can also use it to define some aspects of interactivity
+- The limited number of HTML elements in turn limits the number of different MVVM bindings we need to develop
+- CSS isn't restricted to appearance - we can also use it to define some aspects of interactivity 
 
 An enormous amount can be achieved using just HTML and CSS without the need for Javascript. In fact there is a growing trend of "just enough Javascript and no more", with CSS being used to do more UI interactivity. Of course, for more sophisticated components we can't avoid scripting and for DHTML we have two options:
 
@@ -72,16 +76,19 @@ This binds the contents of the text input element to the value of the UserSurnam
 
 ### Todo
 
-#### Bindings
-- TListView
+#### Component Bindings
+- ListView
 - Treeview
 
 #### Code
 - Improve some of the RTTI code
 - Tests: Need to decide how best to test the UI primitives
-- More demos
 - Integration with Spring4D?
 - Investigate possibility of common UI codebase for desktop and web
+
+#### Demos
+- More demos
+- Pure-CSS controls (e.g. a CSS tab control demo)
 
 ### Prerequisites
 This library has been developed and tested with **Delphi 10.4.2 Sydney** - I have not tried or tested any other versions so far.

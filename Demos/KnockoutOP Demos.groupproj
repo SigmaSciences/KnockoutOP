@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{195900D0-B3EA-4088-8566-F5B55ADAF5A9}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Buttons\ButtonsMVVM.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="ComboBox ObsArray\ComboBoxOA.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="ButtonsMVVM">
+        <MSBuild Projects="Buttons\ButtonsMVVM.dproj"/>
+    </Target>
+    <Target Name="ButtonsMVVM:Clean">
+        <MSBuild Projects="Buttons\ButtonsMVVM.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ButtonsMVVM:Make">
+        <MSBuild Projects="Buttons\ButtonsMVVM.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ComboBoxOA">
+        <MSBuild Projects="ComboBox ObsArray\ComboBoxOA.dproj"/>
+    </Target>
+    <Target Name="ComboBoxOA:Clean">
+        <MSBuild Projects="ComboBox ObsArray\ComboBoxOA.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ComboBoxOA:Make">
+        <MSBuild Projects="ComboBox ObsArray\ComboBoxOA.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="ButtonsMVVM;ComboBoxOA"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="ButtonsMVVM:Clean;ComboBoxOA:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="ButtonsMVVM:Make;ComboBoxOA:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
