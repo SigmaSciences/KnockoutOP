@@ -8,8 +8,8 @@ KnockoutOP combines two superb libraries from the [Delphi](https://www.embarcade
 #### Knockoff
 The only file required from Knockoff is Knockoff.Observable.pas.
 
-### Basic Bindings
-Basic bindings are currently available for the following:
+### Basic Element Bindings
+Basic bindings are currently available for the following elements:
 
 | HTML | VCL Equivalent      | 
 | -------------| -----------      |
@@ -33,6 +33,8 @@ Applications such as Visual Studio Code demonstrate what's achievable using HTML
 - Styling and UIs can be built by web developers
 - End users can apply (and even develop) custom styles
 - UIs can be built using modern vector tools such as [Figma](https://www.figma.com/)
+- The limited number of HTML elements in turn limits the number of different bindings we need to develop
+- CSS isn't restricted to appearance - we can also use it to define some aspects of interactivity
 
 An enormous amount can be achieved using just HTML and CSS without the need for Javascript. In fact there is a growing trend of "just enough Javascript and no more", with CSS being used to do more UI interactivity. Of course, for more sophisticated components we can't avoid scripting and for DHTML we have two options:
 
@@ -41,16 +43,37 @@ An enormous amount can be achieved using just HTML and CSS without the need for 
 
 At some point in the future we might get Javascript integrated into DHTML and then we would see an explosion of options for Delphi developers.
 
-### Knockout.js
+### Knockout.js Bindings
 
-Knockout.js was very popular for web application development but in recent years has been regarded as legacy technology. There's nothing fundamentally wrong with it, but rather there have appeared alternative frameworks that provide additional functionality (e.g. routing) as well as data binding. These frameworks tend to be "all-or-nothing" and there's a certain attraction in building a more flexible framework that doesn't lead to lock-in. In Delphi app development of course the fundamental architecture is completely different and a Knockout-style MVVM could be very useful. When we also consider using Knockout.js in one of the Delphi web frameworks, e.g. [Quartex](https://www.patreon.com/quartexnow) or [TMS Web Core](https://www.tmssoftware.com/site/tmswebcore.asp), we can see the possibility of a common UI codebase across desktop, mobile and web.
+[Knockout.js](https://knockoutjs.com/index.html) was very popular for web application development but in recent years has been regarded as legacy technology. There's nothing fundamentally wrong with it, but rather there have appeared alternative frameworks that provide additional functionality (e.g. routing) as well as data binding. These frameworks tend to be "all-or-nothing" and there's a certain attraction in building a more flexible framework that doesn't lead to lock-in. In Delphi app development of course the fundamental architecture is completely different and a Knockout-style MVVM could be very useful. When we also consider using Knockout.js in one of the Delphi web frameworks, e.g. [Quartex](https://www.patreon.com/quartexnow) or [TMS Web Core](https://www.tmssoftware.com/site/tmswebcore.asp), we can see the possibility of a common UI codebase across desktop, mobile and web.
+
+The syntax used to declare a binding in KnockoutOP is the same as that for Knockout.js, for example the value binding for a text input:
+
+`<input type="text" id="surname" data-bind="value: UserSurname">`
+
+This binds the contents of the text input element to the value of the UserSurname member in the viewmodel. The following table shows the current status of the binding support in KnockoutOP for a subset of Knockout.js bindings:
+
+| Binding | Implemented      | 
+| -------------| -----------      |
+|  visible       | ❌️               |
+|  text       | ✔️               |
+|  html       | ❌️               |
+|  class/css       | ❌️               |
+|  style       | ❌️               |
+|  attr       | ❌️               |
+|  click       | ✔️               |
+|  event       | ❌️               |
+|  enabled/disabled       | ✔️               |
+|  value       | ✔️               |
+|  checked       | ✔️               |
+|  options       | ✔️               |
+|  selectedOptions       | ✔️               |
 
 
 ### Todo
 
 #### Bindings
 - TListView
-- Grids (Note that there is a powerful table component in DHTML and this is being evaluated)
 - Treeview
 
 #### Code
