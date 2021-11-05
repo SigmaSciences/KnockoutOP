@@ -58,3 +58,6 @@ __recovery/
 *.pch
 /*.chw
 *.chw
+
+# Eurekalog
+*.eof

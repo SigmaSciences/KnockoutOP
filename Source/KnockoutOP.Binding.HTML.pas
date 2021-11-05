@@ -30,6 +30,12 @@ uses
   System.Generics.Collections,
   System.TypInfo,
 
+  {$IFNDEF FMX}
+  Vcl.Dialogs,
+  {$ELSE}
+  FMX.Dialogs,
+  {$ENDIF}
+
   Knockoff.Observable,
   KnockoutOP.HTML,
   KnockoutOP.Intf;
@@ -372,7 +378,6 @@ begin
       ix: integer;
       selectedItem: string;
       arrValues: TArray<string>;
-      arrObjValues: TArray<TObject>;
       sValues: TList<string>;
       oValues: TList<TObject>;
       t: TSelectElement;
@@ -392,19 +397,32 @@ begin
         t.InnerHTML := '';
         if observable.Value.IsArray then
         begin
+          { TODO : Other array types. }
           if observable.Value.TryAsType<TArray<string>>(arrValues) then
           begin
             for i := Low(arrValues) to High(arrValues) do
               t.AddString(arrValues[i]);
           end
-          else if observable.Value.TryAsType<TArray<TObject>>(arrObjValues) then
+          else
           begin
-            { TODO : TryAsType appears to fail when using an observable array of objects. }
-            for obj in arrObjValues do
+            if (observable.Value.GetArrayLength > 0) and (observable.Value.GetArrayElement(0).IsObject) then
             begin
-              objProp := ctx.GetType(obj.ClassInfo).GetProperty(FOptionsText);
-              if Assigned(objProp) then
-                t.AddObject(objProp.GetValue(obj).ToString, obj);
+              for i := 0 to observable.Value.GetArrayLength - 1 do
+              begin
+                try
+                  obj := observable.Value.GetArrayElement(i).AsObject;
+                  if Assigned(obj) then
+                    objProp := ctx.GetType(obj.ClassInfo).GetProperty(FOptionsText);
+                  if Assigned(objProp) then
+                    t.AddObject(objProp.GetValue(obj).ToString, obj);
+                except
+                  on E: Exception do
+                  begin
+                    MessageDlg('Unassigned object in observable array: ' + E.Message, TMsgDlgType.mtError, [TMsgDlgBtn.mbOK], 0);
+                    exit;
+                  end;
+                end;
+              end;
             end;
           end;
         end
@@ -462,7 +480,7 @@ begin
   // -- It's possible for the user to specify multi-select in the control
   // -- but not specify a selectedOptions binding. In that case just use
   // -- the last item selected.
-  // -- If multiselect = true then we'll have s = 'string1,string2'.
+  // -- If multiselect = true then we'll have s = 'string1,string2',...etc.
   if t.SelectCount > 1 then
   begin
     arrSelected := SplitString(s, ',');

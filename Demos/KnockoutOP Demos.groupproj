@@ -9,6 +9,9 @@
         <Projects Include="ComboBox ObsArray\ComboBoxOA.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="ComboBox Objects\ObjectsComboBox.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -35,14 +38,23 @@
     <Target Name="ComboBoxOA:Make">
         <MSBuild Projects="ComboBox ObsArray\ComboBoxOA.dproj" Targets="Make"/>
     </Target>
+    <Target Name="ObjectsComboBox">
+        <MSBuild Projects="ComboBox Objects\ObjectsComboBox.dproj"/>
+    </Target>
+    <Target Name="ObjectsComboBox:Clean">
+        <MSBuild Projects="ComboBox Objects\ObjectsComboBox.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ObjectsComboBox:Make">
+        <MSBuild Projects="ComboBox Objects\ObjectsComboBox.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="ButtonsMVVM;ComboBoxOA"/>
+        <CallTarget Targets="ButtonsMVVM;ComboBoxOA;ObjectsComboBox"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="ButtonsMVVM:Clean;ComboBoxOA:Clean"/>
+        <CallTarget Targets="ButtonsMVVM:Clean;ComboBoxOA:Clean;ObjectsComboBox:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="ButtonsMVVM:Make;ComboBoxOA:Make"/>
+        <CallTarget Targets="ButtonsMVVM:Make;ComboBoxOA:Make;ObjectsComboBox:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
