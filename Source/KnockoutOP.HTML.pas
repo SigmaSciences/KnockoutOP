@@ -52,7 +52,7 @@ type
     ParentElement: TElement;
     ElementType: TElementType;
     Bindings: string;
-    constructor Create(elem, parentElem: TElement; eType: TElementType; bnd: string);
+    constructor Create(elem, parentElem: TElement; const eType: TElementType; const bnd: string);
   end;
 
   TDataBindNodes = TDictionary<string, TDataBindNode>;
@@ -216,7 +216,7 @@ end;
 { TDataBindNode }
 
 //------------------------------------------------------------------------------
-constructor TDataBindNode.Create(elem, parentElem: TElement; eType: TElementType; bnd: string);
+constructor TDataBindNode.Create(elem, parentElem: TElement; const eType: TElementType; const bnd: string);
 begin
   Element := elem;
   ParentElement := parentElem;
