@@ -21,6 +21,9 @@
         <Projects Include="TextArea TMemo\TextAreaTMemo.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="Dependent Label\DependentLabel.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -83,14 +86,23 @@
     <Target Name="TextAreaTMemo:Make">
         <MSBuild Projects="TextArea TMemo\TextAreaTMemo.dproj" Targets="Make"/>
     </Target>
+    <Target Name="DependentLabel">
+        <MSBuild Projects="Dependent Label\DependentLabel.dproj"/>
+    </Target>
+    <Target Name="DependentLabel:Clean">
+        <MSBuild Projects="Dependent Label\DependentLabel.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="DependentLabel:Make">
+        <MSBuild Projects="Dependent Label\DependentLabel.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="ButtonsMVVM;ComboBoxOA;ObjectsComboBox;ListBoxTList;MultiSelectString;TextAreaTMemo"/>
+        <CallTarget Targets="ButtonsMVVM;ComboBoxOA;ObjectsComboBox;ListBoxTList;MultiSelectString;TextAreaTMemo;DependentLabel"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="ButtonsMVVM:Clean;ComboBoxOA:Clean;ObjectsComboBox:Clean;ListBoxTList:Clean;MultiSelectString:Clean;TextAreaTMemo:Clean"/>
+        <CallTarget Targets="ButtonsMVVM:Clean;ComboBoxOA:Clean;ObjectsComboBox:Clean;ListBoxTList:Clean;MultiSelectString:Clean;TextAreaTMemo:Clean;DependentLabel:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="ButtonsMVVM:Make;ComboBoxOA:Make;ObjectsComboBox:Make;ListBoxTList:Make;MultiSelectString:Make;TextAreaTMemo:Make"/>
+        <CallTarget Targets="ButtonsMVVM:Make;ComboBoxOA:Make;ObjectsComboBox:Make;ListBoxTList:Make;MultiSelectString:Make;TextAreaTMemo:Make;DependentLabel:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
