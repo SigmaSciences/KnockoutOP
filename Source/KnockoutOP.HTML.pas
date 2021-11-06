@@ -36,11 +36,13 @@ type
   TInputElement = htclasses.TInputElement;
   TTextAreaElement = htclasses.TTextAreaElement;
   TSelectElement = htclasses.TSelectElement;
+  TLabelElement = htclasses.THtLabelElement;
 
   // -- Note that we translate the HTML names into VCL-style names.
   TElementType = (etUnknown,
                   etButton,
                   etEditBox,
+                  etLabel,
                   etMemo,
                   etComboBox,       // TSelectElement
                   etListBox,        // TSelectElement with "size" attribute.
@@ -140,6 +142,8 @@ begin
     result := etButton
   else if SameText(eTag, 'textarea') then
     result := etMemo
+  else if SameText(eTag, 'label') then
+    result := etLabel
   else if SameText(eTag, 'select') then
   begin
     if e.HasAttribute('size') then

@@ -91,6 +91,13 @@ type
     procedure InitTarget; override;
   end;
 
+  TLabelBinding = class(TBinding<TLabelElement>)
+  protected
+    procedure HandleChange(Sender: TObject);
+    function InitGetValue(const observable: IObservable): TFunc<TValue>; override;
+    procedure InitTarget; override;
+  end;
+
   TTextAreaBinding = class(TBinding<TTextAreaElement>)
   protected
     procedure HandleChange(Sender: TObject);
@@ -157,6 +164,7 @@ begin
   result := nil;
   case targetType of
     etEditBox: if SameText(expression, 'value') then result := TEditBinding;
+    etLabel: if SameText(expression, 'text') then result := TLabelBinding;
     etMemo: if SameText(expression, 'value') then result := TTextAreaBinding;
     etButton: if SameText(expression, 'click') then result := TButtonBinding;
     etComboBox: begin
@@ -351,6 +359,34 @@ begin
     begin
       Target.SetAttribute('value', observable.Value.ToString);
     end;
+end;
+
+{$ENDREGION}
+
+
+{$REGION 'TLabelBinding'}
+
+{ TLabelBinding }
+
+//------------------------------------------------------------------------------
+procedure TLabelBinding.HandleChange(Sender: TObject);
+begin
+  Source.Value := Target.InnerHTML;
+end;
+//------------------------------------------------------------------------------
+function TLabelBinding.InitGetValue(
+  const observable: IObservable): TFunc<TValue>;
+begin
+  result :=
+    function: TValue
+    begin
+      Target.InnerHTML := observable.Value.ToString;
+    end;
+end;
+//------------------------------------------------------------------------------
+procedure TLabelBinding.InitTarget;
+begin
+  Target.OnStateChanged := HandleChange;
 end;
 
 {$ENDREGION}
@@ -655,5 +691,8 @@ begin
 end;
 
 {$ENDREGION}
+
+
+
 
 end.
