@@ -569,7 +569,7 @@ begin
       end;
 
       { TODO : How to get correct typeinfo from Source.Value? TypeInfo(TArray<TObject>) doesn't work - gives an empty v. }
-      //TValue.Make(@oValues, TypeInfo(TArray<TObject>), v);   <--- Doesn't work
+      //TValue.Make(@oValues, TypeInfo(TArray<TObject>), v);   <--- Doesn't work - returns an empty array in TValue.
       //ti :=
       TValue.Make(@oValues, ti, v);
       Source.Value := v;
@@ -630,6 +630,7 @@ end;
 
 { TTextAreaBinding }
 
+{ TODO : TTextAreaBinding - use attribute rather than the control. TTextAreaElement Bug? }
 //------------------------------------------------------------------------------
 procedure TTextAreaBinding.HandleChange(Sender: TObject);
 begin
