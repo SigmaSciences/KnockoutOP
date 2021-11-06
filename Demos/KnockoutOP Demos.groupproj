@@ -18,6 +18,9 @@
         <Projects Include="Multiselect String\MultiSelectString.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="TextArea TMemo\TextAreaTMemo.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -71,14 +74,23 @@
     <Target Name="MultiSelectString:Make">
         <MSBuild Projects="Multiselect String\MultiSelectString.dproj" Targets="Make"/>
     </Target>
+    <Target Name="TextAreaTMemo">
+        <MSBuild Projects="TextArea TMemo\TextAreaTMemo.dproj"/>
+    </Target>
+    <Target Name="TextAreaTMemo:Clean">
+        <MSBuild Projects="TextArea TMemo\TextAreaTMemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TextAreaTMemo:Make">
+        <MSBuild Projects="TextArea TMemo\TextAreaTMemo.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="ButtonsMVVM;ComboBoxOA;ObjectsComboBox;ListBoxTList;MultiSelectString"/>
+        <CallTarget Targets="ButtonsMVVM;ComboBoxOA;ObjectsComboBox;ListBoxTList;MultiSelectString;TextAreaTMemo"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="ButtonsMVVM:Clean;ComboBoxOA:Clean;ObjectsComboBox:Clean;ListBoxTList:Clean;MultiSelectString:Clean"/>
+        <CallTarget Targets="ButtonsMVVM:Clean;ComboBoxOA:Clean;ObjectsComboBox:Clean;ListBoxTList:Clean;MultiSelectString:Clean;TextAreaTMemo:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="ButtonsMVVM:Make;ComboBoxOA:Make;ObjectsComboBox:Make;ListBoxTList:Make;MultiSelectString:Make"/>
+        <CallTarget Targets="ButtonsMVVM:Make;ComboBoxOA:Make;ObjectsComboBox:Make;ListBoxTList:Make;MultiSelectString:Make;TextAreaTMemo:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
