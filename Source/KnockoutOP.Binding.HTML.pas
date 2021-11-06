@@ -426,7 +426,7 @@ begin
             end;
           end;
         end
-        else
+        else          // -- Try TList<>....
         begin
           v := observable.Value;
           if v.TypeInfo.Kind = tkClass then
@@ -541,18 +541,44 @@ var
   sValues: TArray<string>;
   oValues: TArray<TObject>;
   v: TValue;
+  arrSelected: TStringDynArray;
+  obj: TObject;
+  s: string;
+  ti: PTypeInfo;
 begin
-  t := Target as TSelectElement;
-  { TODO : TMultiSelectBinding.HandleChange - Implement more source types. }
-
   // -- We update the observable array in the viewmodel that reflects the
   // -- selected items. Any control bound to this array will then be updated.
-  if Source.Value.IsArray then
+  // -- Note that TList<> is not relevant here since it's not observable.
+
+  t := Target as TSelectElement;
+  s := t.Value;
+
+  if t.SelectCount > 0 then
   begin
-    if Source.Value.TryAsType<TArray<string>>(sValues) then
+    arrSelected := SplitString(s, ',');
+    obj := t.ObjectFromValue(arrSelected[0]);
+    if assigned(obj) then      // -- Build an array of objects.
     begin
+      SetLength(oValues, t.SelectCount);
       ix := 0;
+      for s in arrSelected do
+      begin
+        obj := t.ObjectFromValue(s);
+        oValues[ix] := obj;
+        ix := ix + 1;
+      end;
+
+      { TODO : How to get correct typeinfo from Source.Value? TypeInfo(TArray<TObject>) doesn't work - gives an empty v. }
+      //TValue.Make(@oValues, TypeInfo(TArray<TObject>), v);   <--- Doesn't work
+      //ti :=
+      TValue.Make(@oValues, ti, v);
+      Source.Value := v;
+    end
+    else                       // -- Build an array of strings.
+    begin
+      { TODO : TMultiSelectBinding.HandleChange - Implement more source types. }
       SetLength(sValues, t.SelectCount);
+      ix := 0;
       for i := 0 to t.SelectCount - 1 do
       begin
         isx := t.SelectedItemIndex[i];
@@ -560,15 +586,18 @@ begin
         ix := ix + 1;
       end;
 
-      TValue.Make(@sValues, TypeInfo(TArray<string>), v);
-    end
-    else        { TODO : Array of TObject. }
-    begin
+      {for s in arrSelected do
+      begin
+        sValues[ix] := s;
+        ix := ix + 1;
+      end;}
 
+      TValue.Make(@sValues, TypeInfo(TArray<string>), v);
+      Source.Value := v;
     end;
-    Source.Value := v;
-  end;
-  { TODO : TLists for selected items. }
+  end
+  else
+    Source.Value := nil;
 end;
 //------------------------------------------------------------------------------
 function TMultiSelectBinding.InitGetValue(
