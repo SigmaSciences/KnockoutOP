@@ -76,13 +76,17 @@ This binds the contents of the text input element to the value of the UserSurnam
 
 ### Todo
 
+#### Tests
+
+Initial work has focused on proving that the concept is worth pursuing. There's still a bit of work to do in this respect but the aim is to start building tests as soon as that's achieved. Current thinking is to use file-based outputs tested against a known correct file, although I'm open to suggestions (and contributions!).
+
+
 #### Component Bindings
 - ListView
 - Treeview
 
 #### Code
 - Improve some of the RTTI code
-- Tests: Need to decide how best to test the UI primitives
 - Integration with Spring4D?
 - Investigate possibility of common UI codebase for desktop and web
 
