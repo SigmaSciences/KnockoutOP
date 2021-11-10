@@ -6,9 +6,23 @@ Copyright (c) 2021 Sigma Sciences Ltd.
 
 Originator: Robert L S Devine
 
-This file is licensed under the Mozilla Public License v2.
-
 -------------------------------------------------------------------------------}
+
+{******************************************************************************}
+{                                                                              }
+{     Licensed under the Apache License, Version 2.0 (the "License");          }
+{     you may not use this file except in compliance with the License.         }
+{     You may obtain a copy of the License at                                  }
+{                                                                              }
+{         http://www.apache.org/licenses/LICENSE-2.0                           }
+{                                                                              }
+{     Unless required by applicable law or agreed to in writing, software      }
+{     distributed under the License is distributed on an "AS IS" BASIS,        }
+{     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. }
+{     See the License for the specific language governing permissions and      }
+{     limitations under the License.                                           }
+{                                                                              }
+{******************************************************************************}
 
 { TODO : Currently using composition for THTMLView - review design. }
 
@@ -43,6 +57,7 @@ type
                   etButton,
                   etEditBox,
                   etLabel,
+                  etCheckBox,
                   etMemo,
                   etComboBox,       // TSelectElement
                   etListBox,        // TSelectElement with "size" attribute.
@@ -140,6 +155,8 @@ begin
   end
   else if SameText(eTag, 'button') then
     result := etButton
+  else if SameText(eTag, 'checkbox') then
+    result := etCheckBox
   else if SameText(eTag, 'textarea') then
     result := etMemo
   else if SameText(eTag, 'label') then
