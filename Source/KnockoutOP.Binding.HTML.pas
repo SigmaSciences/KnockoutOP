@@ -107,6 +107,13 @@ type
     procedure InitTarget; override;
   end;
 
+  TCheckBoxBinding = class(TBinding<TInputElement>)
+  protected
+    procedure HandleChange(Sender: TObject);
+    function InitGetValue(const observable: IObservable): TFunc<TValue>; override;
+    procedure InitTarget; override;
+  end;
+
   TLabelBinding = class(TBinding<TLabelElement>)
   protected
     procedure HandleChange(Sender: TObject);
@@ -183,6 +190,7 @@ begin
     etLabel: if SameText(expression, 'text') then result := TLabelBinding;
     etMemo: if SameText(expression, 'value') then result := TTextAreaBinding;
     etButton: if SameText(expression, 'click') then result := TButtonBinding;
+    etCheckBox: if SameText(expression, 'checked') then result := TCheckBoxBinding;
     etComboBox: begin
       if SameText(expression, 'value') then result := TSelectBinding
       else if SameText(expression, 'options') then result := TSelectItemsBinding;
@@ -370,11 +378,44 @@ end;
 //------------------------------------------------------------------------------
 function TEditBinding.InitGetValue(const observable: IObservable): TFunc<TValue>;
 begin
-  Result :=
+  result :=
     function: TValue
     begin
       Target.SetAttribute('value', observable.Value.ToString);
     end;
+end;
+
+{$ENDREGION}
+
+
+{$REGION 'TCheckBoxBinding'}
+
+{ TCheckBoxBinding }
+
+//------------------------------------------------------------------------------
+procedure TCheckBoxBinding.HandleChange(Sender: TObject);
+begin
+  Source.Value := Target.Checked;
+  //Source.Value := Target.HasAttribute('checked');
+end;
+//------------------------------------------------------------------------------
+function TCheckBoxBinding.InitGetValue(
+  const observable: IObservable): TFunc<TValue>;
+begin
+  result :=
+    function: TValue
+    begin
+      Target.Checked := observable.Value.AsBoolean;
+      {if observable.Value.AsBoolean then
+        Target.Attributes.Add('checked', 'true')
+      else
+        Target.Attributes.ClearAttr('checked');}
+    end;
+end;
+//------------------------------------------------------------------------------
+procedure TCheckBoxBinding.InitTarget;
+begin
+  Target.OnStateChanged := HandleChange;
 end;
 
 {$ENDREGION}
@@ -707,6 +748,7 @@ begin
 end;
 
 {$ENDREGION}
+
 
 
 

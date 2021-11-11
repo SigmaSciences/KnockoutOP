@@ -147,6 +147,8 @@ begin
         result := etEditBox
       else if SameText(typeAttr, 'button') then     // -- It's a Form button.
         result := etButton
+      else if SameText(typeAttr, 'checkbox') then   // -- It's a Form checkbox.
+        result := etCheckBox
       else if SameText(typeAttr, 'textarea') then   // -- It's a Form textarea.
         result := etMemo;
     end

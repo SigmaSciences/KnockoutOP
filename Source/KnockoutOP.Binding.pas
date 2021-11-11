@@ -121,7 +121,7 @@ begin
         bnd := nil;
         psn := Pos(':', binding);
         targetName := Trim(Copy(binding, 1, psn - 1));
-        if SameText('optionsText', targetName) then continue;     // -- optionsText is handled in BindOptions.
+        if SameText('optionsText', targetName) then continue;
         sourceName := Trim(Copy(binding, psn + 1, length(binding) - psn));
 
         bnd := Bind(view.DataBindNodes[bindNodeId].Element, et, targetName, viewModel, sourceName, optionsText);
