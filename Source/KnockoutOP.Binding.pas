@@ -66,14 +66,9 @@ var
 //------------------------------------------------------------------------------
 procedure ApplyBindings(const view: THTMLView; const viewModel: TObject);
 var
-  field: TRttiField;
-  subField: TRttiField;
-  attr: TCustomAttribute;
-  cmp: TComponent;
   bindNodeId: string;
   arrBindings: TStringDynArray;
   binding: string;
-  parentBinding: string;
   targetName: string;
   sourceName: string;
   psn: integer;
@@ -177,7 +172,6 @@ var
   i: Integer;
   typ: TRttiType;
   prop: TRttiProperty;
-  bIsEmpty: boolean;
 begin
   Result := nil;
   expressions := SplitString(expression, '.');
@@ -215,7 +209,6 @@ var
   typ: TRttiType;
   method: TRttiMethod;
   bindingClass: TBindingClass;
-  s: string;
 begin
   result := nil;
   observable := CreateObservable(source, sourceExpression);

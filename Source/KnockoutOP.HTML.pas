@@ -58,6 +58,7 @@ type
                   etEditBox,
                   etLabel,
                   etCheckBox,
+                  etRadioButton,
                   etMemo,
                   etComboBox,       // TSelectElement
                   etListBox,        // TSelectElement with "size" attribute.
@@ -137,19 +138,22 @@ begin
   eTag := e.Tag;
   if SameText(eTag, 'input') then
   begin
-    if e.HasAttribute('type') then
+    if e.HasAttribute('type') then  // -- It's an element contained within a form or div.
     begin
+
       typeAttr := Trim(e.Attr['type']);
       // -- From a data binding viewpoint, the text and password types can be regarded as text input.
       { TODO : Separate types for email etc.? - for validation. }
       if (SameText(typeAttr, 'text')) or (SameText(typeAttr, 'password')) or
         (SameText(typeAttr, 'email')) or (SameText(typeAttr, 'tel')) or (SameText(typeAttr, 'url')) then
         result := etEditBox
-      else if SameText(typeAttr, 'button') then     // -- It's a Form button.
+      else if SameText(typeAttr, 'button') then
         result := etButton
-      else if SameText(typeAttr, 'checkbox') then   // -- It's a Form checkbox.
+      else if SameText(typeAttr, 'checkbox') then
         result := etCheckBox
-      else if SameText(typeAttr, 'textarea') then   // -- It's a Form textarea.
+      else if SameText(typeAttr, 'radio') then
+        result := etRadioButton
+      else if SameText(typeAttr, 'textarea') then
         result := etMemo;
     end
     else
@@ -159,6 +163,8 @@ begin
     result := etButton
   else if SameText(eTag, 'checkbox') then
     result := etCheckBox
+  else if SameText(eTag, 'radio') then
+    result := etRadioButton
   else if SameText(eTag, 'textarea') then
     result := etMemo
   else if SameText(eTag, 'label') then

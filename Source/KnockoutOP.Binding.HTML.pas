@@ -45,6 +45,7 @@ uses
   System.Types,
   System.Generics.Collections,
   System.TypInfo,
+  System.UITypes,
 
   {$IFNDEF FMX}
   Vcl.Dialogs,
@@ -108,6 +109,13 @@ type
   end;
 
   TCheckBoxBinding = class(TBinding<TInputElement>)
+  protected
+    procedure HandleChange(Sender: TObject);
+    function InitGetValue(const observable: IObservable): TFunc<TValue>; override;
+    procedure InitTarget; override;
+  end;
+
+  TRadioButtonBinding = class(TBinding<TInputElement>)
   protected
     procedure HandleChange(Sender: TObject);
     function InitGetValue(const observable: IObservable): TFunc<TValue>; override;
@@ -191,6 +199,7 @@ begin
     etMemo: if SameText(expression, 'value') then result := TTextAreaBinding;
     etButton: if SameText(expression, 'click') then result := TButtonBinding;
     etCheckBox: if SameText(expression, 'checked') then result := TCheckBoxBinding;
+    etRadioButton: if SameText(expression, 'checked') then result := TRadioButtonBinding;
     etComboBox: begin
       if SameText(expression, 'value') then result := TSelectBinding
       else if SameText(expression, 'options') then result := TSelectItemsBinding;
@@ -222,8 +231,8 @@ type
 
 //------------------------------------------------------------------------------
 function TBaseInputElementHelper.GetEnabled: Boolean;
-var
-  s: string;
+//var
+//  s: string;
 begin
   result := not Disabled;
   //s := Attr['disabled'];
@@ -406,6 +415,7 @@ begin
     function: TValue
     begin
       Target.Checked := observable.Value.AsBoolean;
+      // -- 11/11/2021 - The following doesn't work - just use Checked property.
       {if observable.Value.AsBoolean then
         Target.Attributes.Add('checked', 'true')
       else
@@ -414,6 +424,39 @@ begin
 end;
 //------------------------------------------------------------------------------
 procedure TCheckBoxBinding.InitTarget;
+begin
+  Target.OnStateChanged := HandleChange;
+end;
+
+{$ENDREGION}
+
+
+{$REGION 'TRadioButtonBinding'}
+
+{ TRadioButtonBinding }
+
+//------------------------------------------------------------------------------
+procedure TRadioButtonBinding.HandleChange(Sender: TObject);
+begin
+  if Target.HasAttribute('value') then
+    Source.Value := Target.GetAttribute('value');
+end;
+//------------------------------------------------------------------------------
+function TRadioButtonBinding.InitGetValue(
+  const observable: IObservable): TFunc<TValue>;
+begin
+  result :=
+    function: TValue
+    var
+      valAttr: string;
+    begin
+      if Target.HasAttribute('value') then
+        valAttr := Target.Attr['value'];
+      Target.Checked := (SameText(observable.Value.AsString, valAttr)) and (valAttr <> '');
+    end;
+end;
+//------------------------------------------------------------------------------
+procedure TRadioButtonBinding.InitTarget;
 begin
   Target.OnStateChanged := HandleChange;
 end;
@@ -475,13 +518,12 @@ begin
       oValues: TList<TObject>;
       t: TSelectElement;
       s: string;
-      p: pointer;
       v: TValue;
-      pType: PTypeInfo;
       typName: string;
       objProp: TRttiProperty;
       obj: TObject;
     begin
+      objProp := nil;
       t := target as TSelectElement;
       ix := t.ItemIndex;
       selectedItem := t.GetItem(ix);
@@ -524,7 +566,7 @@ begin
           v := observable.Value;
           if v.TypeInfo.Kind = tkClass then
           begin
-            typName := v.TypeInfo.Name;
+            typName := string(v.TypeInfo.Name);
             if SameText(typName, 'TList<System.String>') then
             begin
               sValues := TList<string>(observable.Value.AsObject);
@@ -558,14 +600,10 @@ end;
 //------------------------------------------------------------------------------
 procedure TSelectBinding.HandleChange(Sender: TObject);
 var
-  ix: integer;
   t: TSelectElement;
   s: string;
-  sValues: TArray<string>;
-  objValues: TArray<TObject>;
   obj: TObject;
   arrSelected: TStringDynArray;
-  v: TValue;
 begin
   t := Target as TSelectElement;
   s := t.Value;
@@ -637,7 +675,7 @@ var
   arrSelected: TStringDynArray;
   obj: TObject;
   s: string;
-  ti: PTypeInfo;
+  //ti: PTypeInfo;
 begin
   // -- We update the observable array in the viewmodel that reflects the
   // -- selected items. Any control bound to this array will then be updated.
@@ -664,8 +702,8 @@ begin
       { TODO : How to get correct typeinfo from Source.Value? TypeInfo(TArray<TObject>) doesn't work - gives an empty v. }
       //TValue.Make(@oValues, TypeInfo(TArray<TObject>), v);   <--- Doesn't work - returns an empty array in TValue.
       //ti :=
-      TValue.Make(@oValues, ti, v);
-      Source.Value := v;
+      //TValue.Make(@oValues, ti, v);
+      //Source.Value := v;
     end
     else                       // -- Build an array of strings.
     begin
@@ -748,8 +786,6 @@ begin
 end;
 
 {$ENDREGION}
-
-
 
 
 
