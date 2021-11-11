@@ -22,7 +22,7 @@ type
     function GetLastName: string;
     procedure SetLastName(const Value: string);
   public
-    constructor Create(const firstName, lastName: string);
+    constructor Create(const firstName, lastName: string); reintroduce;
     property LastName: string read GetLastName write SetLastName;
     property FirstName: Observable<string> read FFirstName;
     property FullName: Observable<string> read FFullName;

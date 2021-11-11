@@ -1,6 +1,6 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{09C5E562-E176-4146-9F87-8CC2F463081F}</ProjectGuid>
+        <ProjectGuid>{F1269CA9-7BD8-40EC-8188-17FA57EA3FFC}</ProjectGuid>
         <ProjectVersion>19.2</ProjectVersion>
         <FrameworkType>VCL</FrameworkType>
         <Base>True</Base>
@@ -8,7 +8,7 @@
         <Platform Condition="'$(Platform)'==''">Win64</Platform>
         <TargetedPlatforms>3</TargetedPlatforms>
         <AppType>Application</AppType>
-        <MainSource>ButtonsMVVM.dpr</MainSource>
+        <MainSource>RadioGroupDemo.dpr</MainSource>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
         <Base>true</Base>
@@ -69,7 +69,9 @@
         <Icon_MainIcon>$(BDS)\bin\delphi_PROJECTICON.ico</Icon_MainIcon>
         <UWP_DelphiLogo44>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_44.png</UWP_DelphiLogo44>
         <UWP_DelphiLogo150>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_150.png</UWP_DelphiLogo150>
-        <SanitizedProjectName>ButtonsMVVM</SanitizedProjectName>
+        <SanitizedProjectName>RadioGroupDemo</SanitizedProjectName>
+        <DCC_MapFile>3</DCC_MapFile>
+        <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <DCC_UsePackage>DBXSqliteDriver;RESTComponents;DBXInterBaseDriver;FlexCel_Pdf;vclactnband;FMX_FlexCel_Core;vclFireDAC;htmlcompfm_xe104;bindcompvclsmp;tethering;svnui;JvGlobus;lmdrtl;FireDACADSDriver;lmdrtplugin;JvPluginSystem;JvMM;sdlbasepack_rt_107XY;sdlmathpack_107XY;vcltouch;JvBands;vcldb;bindcompfmx;svn;SKIA_FlexCel_Core;FlexCel_Report;JvJans;JvNet;inetdb;JvAppFrm;VirtualTreesDR;RaizeComponentsVcl;FmxTeeUI;JvDotNetCtrls;RaizeComponentsVclDb;fmx;FireDACIBDriver;fmxdae;VCL_FlexCel_Components;devFileMonitor;vcledge;EasyListviewD;adxolBuildD27;StyleControls_dxe104Sydney;JvWizards;lmdrtdialog;SpTBXLib;dbexpress;IndyCore;lmdrtdesign;htmlcomp_xe104;vclx;Python;JvPageComps;dsnap;lmdrtrtlx;lmdrtthemes;lmdrtide;FireDACCommon;JvDB;RESTBackendComponents;VCLTMSFNCCorePkgDXE13;VCLRESTComponents;soapserver;JclDeveloperTools;FMXTMSFNCUIPackPkgDXE13;VCLTMSFNCUIPackPkgDXE13;lmdrtinspector;vclie;bindengine;DBXMySQLDriver;CloudService;JvCmp;FireDACMySQLDriver;JvHMI;SVGIconPackage;devShortcuts;htmlreports_xe104;FireDACCommonODBC;FireDACCommonDriver;inet;lmdrtspell;SynWeb_RD;IndyIPCommon;bindcompdbx;JvCustom;htmleditcore_xe104;vcl;IndyIPServer;PipesRunTime;JvXPCtrls;IndySystem;bindcompvclwinx;dsnapcon;madExcept_;FireDACMSAccDriver;fmxFireDAC;vclimg;FMXTMSFNCCorePkgDXE13;TeeDB;FireDAC;FlexCel_XlsAdapter;Jcl;JvCore;madBasic_;JvCrypt;FireDACSqliteDriver;FireDACPgDriver;FMXTee;soaprtl;DbxCommonDriver;FlexCel_Core;JvDlgs;JvManagedThreads;Tee;JvRuntimeDesign;sdlmathpack_rt_107XY;xmlrtl;soapmidas;JvTimeFramework;fmxobj;vclwinx;PythonVcl;rtl;PythonFmx;DbxClientDriver;madDisAsm_;lmdrtscript;adxBuildD27;CustomIPTransport;vcldsnap;htmledit_xe104;JvSystem;JvStdCtrls;lmdrtprint;SynEditDR;bindcomp;appanalytics;lmdrtdocking;ClassBrowsing;IndyIPClient;EurekaLogCore;bindcompvcl;lmdrtsyntax;SVGIconImageList;TeeUI;FMX_FlexCel_Components;JvDocking;dbxcds;VclSmp;VCL_FlexCel_Core;adortl;JvPascalInterpreter;htmleditfm_xe104;FlexCel_Render;JclVcl;hclcore_xe104;tb2k_d12;MPCommonLibD;lmdrtscriptimp;dsnapxml;dbrtl;IndyProtocols;inetdbxpress;JvControls;JvPrintPreview;JclContainers;fmxase;$(DCC_UsePackage)</DCC_UsePackage>
@@ -145,13 +147,13 @@
         <BorlandProject>
             <Delphi.Personality>
                 <Source>
-                    <Source Name="MainSource">ButtonsMVVM.dpr</Source>
+                    <Source Name="MainSource">RadioGroupDemo.dpr</Source>
                 </Source>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="Win32\Debug\ButtonsMVVM.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="Win32\Debug\RadioGroupDemo.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>ButtonsMVVM.exe</RemoteName>
+                        <RemoteName>RadioGroupDemo.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

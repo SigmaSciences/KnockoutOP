@@ -28,8 +28,6 @@ object MainForm: TMainForm
     Ctl3D = False
     ParentCtl3D = False
     TabOrder = 0
-    ExplicitLeft = -417
-    ExplicitWidth = 1044
     object btnBind: TButton
       Left = 4
       Top = 5
@@ -90,9 +88,5 @@ object MainForm: TMainForm
         '/label>'
       '</body>')
     HighlightTextColor = 0
-    ExplicitLeft = -417
-    ExplicitTop = -20
-    ExplicitWidth = 1044
-    ExplicitHeight = 350
   end
 end

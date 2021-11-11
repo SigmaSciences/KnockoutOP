@@ -27,6 +27,9 @@
         <Projects Include="Checkbox\CheckboxDemo.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="RadioGroup\RadioGroupDemo.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -107,14 +110,23 @@
     <Target Name="CheckboxDemo:Make">
         <MSBuild Projects="Checkbox\CheckboxDemo.dproj" Targets="Make"/>
     </Target>
+    <Target Name="RadioGroupDemo">
+        <MSBuild Projects="RadioGroup\RadioGroupDemo.dproj"/>
+    </Target>
+    <Target Name="RadioGroupDemo:Clean">
+        <MSBuild Projects="RadioGroup\RadioGroupDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="RadioGroupDemo:Make">
+        <MSBuild Projects="RadioGroup\RadioGroupDemo.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="ButtonsMVVM;ComboBoxOA;ObjectsComboBox;ListBoxTList;MultiSelectString;TextAreaTMemo;DependentLabel;CheckboxDemo"/>
+        <CallTarget Targets="ButtonsMVVM;ComboBoxOA;ObjectsComboBox;ListBoxTList;MultiSelectString;TextAreaTMemo;DependentLabel;CheckboxDemo;RadioGroupDemo"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="ButtonsMVVM:Clean;ComboBoxOA:Clean;ObjectsComboBox:Clean;ListBoxTList:Clean;MultiSelectString:Clean;TextAreaTMemo:Clean;DependentLabel:Clean;CheckboxDemo:Clean"/>
+        <CallTarget Targets="ButtonsMVVM:Clean;ComboBoxOA:Clean;ObjectsComboBox:Clean;ListBoxTList:Clean;MultiSelectString:Clean;TextAreaTMemo:Clean;DependentLabel:Clean;CheckboxDemo:Clean;RadioGroupDemo:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="ButtonsMVVM:Make;ComboBoxOA:Make;ObjectsComboBox:Make;ListBoxTList:Make;MultiSelectString:Make;TextAreaTMemo:Make;DependentLabel:Make;CheckboxDemo:Make"/>
+        <CallTarget Targets="ButtonsMVVM:Make;ComboBoxOA:Make;ObjectsComboBox:Make;ListBoxTList:Make;MultiSelectString:Make;TextAreaTMemo:Make;DependentLabel:Make;CheckboxDemo:Make;RadioGroupDemo:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
