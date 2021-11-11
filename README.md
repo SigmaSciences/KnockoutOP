@@ -3,7 +3,7 @@
 KnockoutOP combines two superb libraries from the [Delphi](https://www.embarcadero.com/products/delphi) ecosystem, [Knockoff](https://bitbucket.org/sglienke/knockoff) MVVM and  [DelphiHTMLComponents](https://delphihtmlcomponents.com/), to provide an HTML/CSS-based approach to MVVM in Delphi. It can currently best be described as a proof-of-concept and is some way from being production quality.
 
 #### Delphi HTML Components (DHTML)
-KnockoutOP uses the **THtPanel** from the DHTML component set.
+KnockoutOP uses the **THtPanel** from the DHTML component set. **Note that DHTML is a commercial component set**.
 
 ##### :warning: Important: The current codebase relies on modified versions of two of the DelphiHTMLComponents units, complicated by the fact that the originals used are not part of an official DHTML release. This will be addressed in the near future but for now the code is for inspection-purposes only.
 
@@ -73,6 +73,12 @@ This binds the contents of the text input element to the value of the UserSurnam
 |  options       | ✔️               |
 |  selectedOptions       | ✔️               |
 
+### Architecture Options
+
+The simplest approach to using KnockoutOP is to compose your UI from multiple instances of THtPanel, each containing HTML dedicated to a particular task. For example, we are currently working on a toolbar and a statusbar based on this approach. This has some similarities to Web Components based on a shadow DOM, where each THtPanel has it's own DOM and hence independent styling if required.
+
+Future work will include investigation of full HTML-based UIs, but this is likely to be a larger project. For both this and the panel-based UIs we are currently investigating CSS-based components with no, or at least very little, Javascript. Small amounts of Javascript could conceivably be ported to DHTML PascalScript.
+
 
 ### Todo
 
@@ -83,7 +89,8 @@ Initial work has focused on proving that the concept is worth pursuing. There's 
 
 #### Component Bindings
 - ListView
-- Treeview
+- Treeview (based on TListView)
+- Fieldset (TGroupBox)
 
 #### Code
 - Improve some of the RTTI code
