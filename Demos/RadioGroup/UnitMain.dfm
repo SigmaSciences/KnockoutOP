@@ -50,7 +50,7 @@ object MainForm: TMainForm
       '  <br/>'
       '  <form>'
       '  <fieldset>'
-      '    <legend> Select a Contact Method </legend>'
+      '    <legend>&nbsp;Select a Contact Method&nbsp;</legend>'
       ''
       '    <input type="radio" id="contactChoice1"'
       
