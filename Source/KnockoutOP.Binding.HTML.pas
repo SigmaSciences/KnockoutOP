@@ -684,7 +684,7 @@ begin
   t := Target as TSelectElement;
   s := t.Value;
 
-  if t.SelectCount > 0 then
+  if (t.SelectCount > 0) and (s <> '') then
   begin
     arrSelected := SplitString(s, ',');
     obj := t.ObjectFromValue(arrSelected[0]);
