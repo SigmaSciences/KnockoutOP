@@ -84,8 +84,9 @@ Future work will include investigation of full HTML-based UIs, but this is likel
 
 #### Tests
 
-Initial work has focused on proving that the concept is worth pursuing. There's still a bit of work to do in this respect but the aim is to start building tests as soon as that's achieved. Current thinking is to use file-based outputs tested against a known correct file, although I'm open to suggestions (and contributions!).
+Initial work has focused on proving that the concept is worth pursuing. There's still a bit of work to do in this respect but the aim is to start building tests as soon as that's achieved. Current thinking is to use file-based outputs tested against a known correct file, although I'm open to suggestions (and contributions!). Until the tests get sorted out it's best to contact me directly rather than use pull requests.
 
+You can contact me on gmail.com using the username found in the commit history. 
 
 #### Component Bindings
 - ListView
