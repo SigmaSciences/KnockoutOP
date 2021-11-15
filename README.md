@@ -5,7 +5,7 @@ KnockoutOP combines two superb libraries from the [Delphi](https://www.embarcade
 #### Delphi HTML Components (DHTML)
 KnockoutOP uses the **THtPanel** from the DHTML component set. **Note that DHTML is a commercial component set**.
 
-##### :warning: Important: The current codebase relies on modified versions of two of the DelphiHTMLComponents units, complicated by the fact that the originals used are not part of an official DHTML release. This will be addressed in the near future but for now the code is for inspection-purposes only.
+##### :warning: Important: The current codebase relies on modified versions of two of the DelphiHTMLComponents units, complicated by the fact that the originals used are not part of an official DHTML release. Patches are available in the DHTML folder.
 
 #### Knockoff
 The only unmodified file required from Knockoff is **Knockoff.Observable.pas**. Heavily modified versions of the other Knockoff files used have been renamed as KnockoutOP and are in the Source folder.
