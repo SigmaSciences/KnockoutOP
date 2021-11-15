@@ -1,0 +1,256 @@
+diff -r H:\comps\DHTML\Deltas\htclasses_v4_5.pas H:\comps\DHTML\Deltas\htclasses_v4_5 - modified.pas
+151a152,157
+>     // RLSD
+>     FSelectedItems: TArray<integer>;
+>     procedure UpdateSelectedItems;
+>     function GetSelectedItemIndex(ix: integer): integer;
+>     //----------------
+> 
+181c187,199
+<     procedure AddString(const s: string);
+---
+> 
+>     // RLSD
+>     procedure AddObject(const AName: hstring; const obj: TObject; const AKey: string = '');
+>     procedure SetSelectedItem(const s: string);
+>     function GetItem(ix: integer): string;
+>     function ObjectFromValue(const AName: hstring): TObject;
+>     function ValueFromObject(obj: TObject): string;
+>     function SelectCount: integer;
+>     function ItemIndex: integer;
+>     property SelectedItemIndex[ix: integer]: integer read GetSelectedItemIndex;
+>     //-----
+> 
+>     procedure AddString(const AName: hstring; const AKey: string = '');  // -- From AS update.
+1046a1065,1069
+> 
+>   // RLSD
+>   if assigned(FOnStateChanged) then
+>     FOnStateChanged(self);
+> 
+1183c1206,1342
+< procedure TSelectElement.AddString(const s: string);
+---
+> // RLSD
+> procedure TSelectElement.AddObject(const AName: hstring; const obj: TObject;
+>   const AKey: string);
+> var
+>   Op: TElement;
+> begin
+>   fValues.Add(AName);
+>   if AKey = '' then
+>     fKeys.Add(AName)
+>   else
+>     fKeys.Add(AKey);
+>   if Assigned(fControl) then
+>   begin
+>     if fIsCombo then
+>       fCombo.Items.AddObject(AName, obj)
+>     else
+>       fList.Items.AddObject(AName, obj);
+>   end;
+>   Op := TElement(Add(TElement(GetElementClass('option').Create)));
+>   Op.Tag := 'option';
+>   Op['value'] := AKey;
+>   Op.InnerText := AName;
+> end;
+> 
+> // RLSD
+> function TSelectElement.GetItem(ix: integer): string;
+> begin
+>   if ix < 0 then exit;
+>   if Assigned(fControl) then
+>   begin
+>     if fIsCombo then
+>     begin
+>       if ix < fCombo.Items.Count then
+>         result := fCombo.Items[ix];
+>     end
+>     else
+>     begin
+>       if ix < fList.Items.Count then
+>         result := fList.Items[ix];
+>     end;
+>   end;
+> end;
+> 
+> // RLSD
+> function TSelectElement.ItemIndex: integer;
+> begin
+>   result := -1;
+>   if Assigned(fControl) then
+>   begin
+>     if fIsCombo then
+>       result := fCombo.ItemIndex
+>     else
+>       result := fList.ItemIndex;
+>   end;
+> end;
+> 
+> // RLSD
+> function TSelectElement.ObjectFromValue(const AName: hstring): TObject;
+> var
+>   ix: integer;
+> begin
+>   result := nil;
+>   if Assigned(fControl) then
+>   begin
+>     if fIsCombo then
+>     begin
+>       ix := fCombo.Items.IndexOf(AName);
+>       if ix > -1 then
+>         result := fCombo.Items.Objects[ix];
+>     end
+>     else
+>     begin
+>       ix := fList.Items.IndexOf(AName);
+>       if ix > -1 then
+>         result := fList.Items.Objects[ix];
+>     end;
+>   end;
+> end;
+> 
+> // RLSD
+> function TSelectElement.ValueFromObject(obj: TObject): string;
+> var
+>   ix: integer;
+> begin
+>   if Assigned(fControl) then
+>   begin
+>     if fIsCombo then
+>     begin
+>       ix := fCombo.Items.IndexOfObject(obj);
+>       if ix > -1 then
+>         result := fCombo.Items[ix];
+>     end
+>     else
+>     begin
+>       ix := fList.Items.IndexOfObject(obj);
+>       if ix > -1 then
+>         result := fList.Items[ix];
+>     end;
+>   end;
+> end;
+> 
+> // RLSD
+> function TSelectElement.SelectCount: integer;
+> {$IFDEF FMX}
+> var
+>   i: integer;
+> {$ENDIF}
+> begin
+>   if (Assigned(fControl)) and (not fIsCombo) then
+>   begin
+>     {$IFDEF FMX}
+>     result := 0;
+>     for i := 0 to fList.Count - 1 do
+>       if fList.ListItems[i].IsSelected then
+>         result := result + 1;
+>     {$ELSE}
+>     result := fList.GetSelCount
+>     {$ENDIF}
+>   end
+>   else
+>     result := 0;
+> end;
+> 
+> // RLSD
+> function TSelectElement.GetSelectedItemIndex(ix: integer): integer;
+> begin
+>   UpdateSelectedItems;
+>   if ix > Length(FSelectedItems) - 1 then
+>     raise Exception.Create('Error: Index out of bounds in GetSelectedItem')
+>   else
+>     result := FSelectedItems[ix];
+> end;
+> 
+> // RLSD
+> procedure TSelectElement.SetSelectedItem(const s: string);
+> var
+>   ix: integer;
+1185c1344,1396
+<   fValues.Add(s);
+---
+>   if Assigned(fControl) then
+>   begin
+>     if fIsCombo then
+>     begin
+>       ix := fCombo.Items.IndexOf(s);
+>       if ix > -1 then
+>         fCombo.ItemIndex := ix;
+>     end
+>     else
+>     begin
+>       ix := fList.Items.IndexOf(s);
+>       if ix > -1 then
+>         fList.ItemIndex := ix;
+>     end;
+>   end;
+> end;
+> 
+> // RLSD
+> procedure TSelectElement.UpdateSelectedItems;
+> var
+>   i: integer;
+>   ix: integer;
+> begin
+>   if (Assigned(fControl)) and (not fIsCombo) then
+>   begin
+>     if SelectCount > 0 then
+>     begin
+>       SetLength(FSelectedItems, SelectCount);
+>       ix := 0;
+> 
+>       for i := 0 to fList.Items.Count - 1 do
+>         {$IFDEF FMX}
+>         if fList.ListItems[i].IsSelected then
+>         {$ELSE}
+>         if fList.Selected[i] then
+>         {$ENDIF}
+>         begin
+>           FSelectedItems[ix] := i;
+>           ix := ix + 1;
+>         end;
+>     end;
+>   end;
+> end;
+> 
+> // -- From AS update.
+> procedure TSelectElement.AddString(const AName: hstring; const AKey: string = '');
+> var Op: TElement;
+> begin
+>   fValues.Add(AName);
+>   if AKey = '' then
+>     fKeys.Add(AName)
+>   else
+>     fKeys.Add(AKey);
+1189c1400
+<       fCombo.Items.Add(s)
+---
+>       fCombo.Items.Add(AName)
+1191c1402
+<       fList.Items.Add(s)
+---
+>       fList.Items.Add(AName)
+1192a1404,1407
+>   Op := TElement(Add(TElement(GetElementClass('option').Create)));
+>   Op.Tag := 'option';
+>   Op['value'] := AKey;
+>   Op.InnerText := AName;
+1416a1632,1634
+> 
+>   // RLSD
+>   FSelectedItems := TArray<integer>.Create();
+1473a1692,1698
+> 
+>   // RLSD
+>   if assigned(FOnStateChanged) then
+>     FOnStateChanged(self);
+>   UpdateSelectedItems;
+>   //--------------------
+> 
+1914a2140,2143
+> 
+>   // RLSD
+>   if assigned(FOnStateChanged) then
+>     FOnStateChanged(self);

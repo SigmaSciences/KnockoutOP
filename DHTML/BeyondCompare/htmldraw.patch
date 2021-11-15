@@ -1,0 +1,34 @@
+diff -r H:\comps\DHTML\Deltas\htmldraw_v4_5.pas H:\comps\DHTML\Deltas\htmldraw_v4_5 - modified.pas
+323a324,328
+> 
+>     // RLSD
+> 	  procedure SetOnStateChanged(const Value: TNotifyEvent);
+>     procedure SetOnClick(const Value: TNotifyEvent);
+>     //----
+324a330,332
+>     FOnClick: TNotifyEvent;               // RLSD
+>     FOnStateChanged: TNotifyEvent;        // RLSD
+> 
+702a711,715
+> 
+>     // -- RLSD
+>     property OnClick: TNotifyEvent read FOnClick write SetOnClick;
+>     property OnStateChanged: TNotifyEvent read FOnStateChanged write SetOnStateChanged;
+>     //--------------
+6208a6222,6232
+> // -- RLSD
+> procedure TElement.SetOnClick(const Value: TNotifyEvent);
+> begin
+>   FOnClick := Value;
+> end;
+> // -- RLSD
+> procedure TElement.SetOnStateChanged(const Value: TNotifyEvent);
+> begin
+>   FOnStateChanged := Value;
+> end;
+> 
+8351a8376,8379
+> 
+>   // RLSD
+>   if assigned(FOnClick) then
+>     FOnClick(self);
